@@ -58,9 +58,11 @@ public:
 				dy_ = -dy_;
 			}
 
+			/*
 			++rect_.c.r;
 			++rect_.c.g;
 			++rect_.c.b;
+			*/
 		}
 	}
 //private:
@@ -78,12 +80,12 @@ int meme(){
 	for(int i = 0; i < num_rects; ++i){
 		recta[i].rect_.x = rand() % (W_RES - 21);
 		recta[i].rect_.y = rand() % (H_RES - 21);
-		recta[i].rect_.w = 20;
+		recta[i].rect_.w = 2;
 		//recta[i].h = rand() % (H_RES - 1 - recta[i].y);
 		recta[i].rect_.h = recta[i].rect_.w;
-		recta[i].rect_.c.r = rand() % 256;
-		recta[i].rect_.c.g = rand() % 256;
-		recta[i].rect_.c.b = rand() % 256;
+		recta[i].rect_.c.r = rand() % 56 + 200;
+		recta[i].rect_.c.g = rand() % 56 + 200;
+		recta[i].rect_.c.b = rand() % 56 + 200;
 		recta[i].dx_ = rand() % 8 - 4;
 		recta[i].dy_ = rand() % 8 - 4;
 	}
@@ -97,6 +99,7 @@ int meme(){
 
         int start = getTicks();
 
+		//MOVE RECTS
 		for(int i = 0; i < num_rects; ++i){
 			recta[i].move();
 		}
@@ -110,6 +113,34 @@ int meme(){
 		}
         surface.unlock();
         surface.flip();
+		//COLLISION DETECTION -- BRUTE FORCE
+		for(int i = 0; i < num_rects; ++i){
+			if(recta[i].get_isAlive()){
+				for(int j = i + 1; j < num_rects; ++j){
+					if(recta[j].get_isAlive()
+						&& ((recta[i].rect_.x >= recta[j].rect_.x
+						&& recta[i].rect_.x <= recta[j].rect_.x + recta[j].rect_.w)
+						|| (recta[j].rect_.x >= recta[i].rect_.x
+						&& recta[j].rect_.x <= recta[i].rect_.x + recta[i].rect_.w))
+						&&
+						((recta[i].rect_.y >= recta[j].rect_.y
+						&& recta[i].rect_.y <= recta[j].rect_.y + recta[j].rect_.h)
+						|| (recta[j].rect_.y >= recta[i].rect_.y
+						&& recta[j].rect_.y <= recta[i].rect_.y + recta[i].rect_.h)))
+					{
+						recta[i].set_isAlive(false);
+						recta[j].set_isAlive(false);
+					}
+				}
+			}
+		}
+
+		int count = 0;
+		for(int i = 0; i < num_rects; ++i){
+			if(recta[i].get_isAlive()) ++count;
+		}
+		std::cout << "NUM ALIVE: " << count << '\n';
+
 
         int end = getTicks();
 
