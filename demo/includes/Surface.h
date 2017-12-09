@@ -120,6 +120,10 @@ public:
 		SDL_Rect r = surface->clip_rect;
 		put_rect(r.x, r.y, r.w, r.h, c);
 	}
+	void put_rect(const Rect & rec)
+	{
+		put_rect(rec.x, rec.y, rec.w, rec.h, rec.c);
+	}
 
 	//------------------------------------------------------------------------
 	//
