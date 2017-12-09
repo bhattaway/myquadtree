@@ -2,6 +2,10 @@
 
 class MovRect{
 public:
+	MovRect()
+		: dx_(0), dy_(0)
+	{
+	}
 	MovRect(Rect rect, int dx = 0, int dy = 0)
 		: rect_(rect), dx_(dx), dy_(dy)
 	{
@@ -25,6 +29,27 @@ public:
 	Rect get_rect(){
 		return rect_;
 	}
+	void move(){
+		rect_.x += dx_;
+		rect_.y += dy_;
+
+		if(rect_.x < 0){
+			rect_.x = 0;
+			dx_ = -dx_;
+		}
+		if(rect_.x > W_RES - rect_.w){
+			rect_.x = W_RES - rect_.w;
+			dx_ = -dx_;
+		}
+		if(rect_.y < 0){
+			rect_.y = 0;
+			dy_ = -dy_;
+		}
+		if(rect_.y > H_RES - rect_.h){
+			rect_.y = H_RES - rect_.h;
+			dy_ = -dy_;
+		}
+	}
 //private:
 	Rect rect_;
 	int dx_;
@@ -35,16 +60,18 @@ int meme(){
 	int num_rects;
 	std::cin >> num_rects;
 
-	Rect * recta = new Rect[num_rects];
+	MovRect * recta = new MovRect[num_rects];
 	for(int i = 0; i < num_rects; ++i){
-		recta[i].x = rand() % (W_RES - 1);
-		recta[i].y = rand() % (H_RES - 1);
-		recta[i].w = rand() % (W_RES - 1 - recta[i].x);
+		recta[i].rect_.x = rand() % (W_RES - 21);
+		recta[i].rect_.y = rand() % (H_RES - 21);
+		recta[i].rect_.w = 20;
 		//recta[i].h = rand() % (H_RES - 1 - recta[i].y);
-		recta[i].h = recta[i].w;
-		recta[i].c.r = rand() % 256;
-		recta[i].c.g = rand() % 256;
-		recta[i].c.b = rand() % 256;
+		recta[i].rect_.h = recta[i].rect_.w;
+		recta[i].rect_.c.r = rand() % 256;
+		recta[i].rect_.c.g = rand() % 256;
+		recta[i].rect_.c.b = rand() % 256;
+		recta[i].dx_ = rand() % 8 - 4;
+		recta[i].dy_ = rand() % 8 - 4;
 	}
 	Surface surface(W_RES, H_RES);
 	Event event;
@@ -57,17 +84,17 @@ int meme(){
         int start = getTicks();
 
 		for(int i = 0; i < num_rects; ++i){
-			++recta[i].c.r;
-			++recta[i].c.g;
-			++recta[i].c.b;
+			++recta[i].rect_.c.r;
+			++recta[i].rect_.c.g;
+			++recta[i].rect_.c.b;
 
-
+			recta[i].move();
 		}
 
 		surface.lock();
         surface.fill(BLACK);
 		for(int i = 0; i < num_rects; ++i){
-			surface.put_rect(recta[i]);
+			surface.put_rect(recta[i].rect_);
 		}
         surface.unlock();
         surface.flip();
