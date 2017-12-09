@@ -17,6 +17,7 @@
 #include "compgeom.h"
 #include "Surface.h"
 #include "Event.h"
+#include "test0.h"
 
 /*****************************************************************************
 This is a short introduction to graphics, animation, sound, music, keyboard
@@ -1141,16 +1142,18 @@ the call to test_pixel() and run the program. Etc.
 *****************************************************************************/
 int main(int argc, char* argv[])
 {
+	srand((unsigned int) time(NULL));
 	//freopen("CON", "w", stdout);
 	//freopen("CON", "w", stderr);
 
 	// Prints to console window
 	std::cout << "hello world" << std::endl;
 
+	meme();
 	//test_event();
 	//test_pixel();
 	//test_line();
-	test_circle();
+	//test_circle();
 	//test_unfilled_circle();
 	//test_rect();
 	//test_image();
