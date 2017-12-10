@@ -1,5 +1,6 @@
 #include "test0.h"
 #include "MovRect.h"
+#include "bruteforcecollision.h"
 
 int meme(){
 	int num_rects;
@@ -7,8 +8,8 @@ int meme(){
 
 	MovRect * recta = new MovRect[num_rects];
 	for(int i = 0; i < num_rects; ++i){
-		recta[i].rect_.x = rand() % (W_RES - 21);
-		recta[i].rect_.y = rand() % (H_RES - 21);
+		recta[i].rect_.x = rand() % (W_RES - 2);
+		recta[i].rect_.y = rand() % (H_RES - 2);
 		recta[i].rect_.w = 2;
 		//recta[i].h = rand() % (H_RES - 1 - recta[i].y);
 		recta[i].rect_.h = recta[i].rect_.w;
@@ -44,8 +45,8 @@ int meme(){
         surface.flip();
 
 		//COLLISION DETECTION -- BRUTE FORCE
-		//bruteforcecollision(recta, num_rects);
-		///*
+		bruteforcecollision(recta, num_rects);
+		/*
 		for(int i = 0; i < num_rects; ++i){
 			if(recta[i].get_isAlive()){
 				for(int j = i + 1; j < num_rects; ++j){
@@ -66,7 +67,7 @@ int meme(){
 				}
 			}
 		}
-		//*/
+		*/
 
 		//COLLISION DETECTION -- QUADTREE
 		
