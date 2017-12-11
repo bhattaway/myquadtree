@@ -1,6 +1,7 @@
 #include "test0.h"
 #include "MovRect.h"
 #include "bruteforcecollision.h"
+#include "quadtreecollision.h"
 
 int meme(){
 	int num_rects;
@@ -45,7 +46,7 @@ int meme(){
         surface.flip();
 
 		//COLLISION DETECTION -- BRUTE FORCE
-		bruteforcecollision(recta, num_rects);
+		//bruteforcecollision(recta, num_rects);
 		/*
 		for(int i = 0; i < num_rects; ++i){
 			if(recta[i].get_isAlive()){
@@ -70,6 +71,7 @@ int meme(){
 		*/
 
 		//COLLISION DETECTION -- QUADTREE
+		quadtreecollision(recta, num_rects);
 		
 
 		int count = 0;

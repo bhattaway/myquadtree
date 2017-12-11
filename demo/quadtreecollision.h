@@ -1,14 +1,14 @@
 #ifndef QUADTREECOLLISION_H
 #define QUADTREECOLLISION_H
 
-#include "MovRect.h"
 #include "test0.h"
+#include "MovRect.h"
 
 class QTNode{
 public:
 	QTNode(int minx = 0, int maxx = W_RES, int miny = 0, int maxy = H_RES);
 	bool has_children() const;
-	void insert(QTNode * proot, MovRect * rect);
+	void insert(MovRect * rect);
 
 	int minx_, maxx_;
 	int miny_, maxy_;

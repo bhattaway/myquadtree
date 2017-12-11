@@ -3,6 +3,11 @@
 int QTNode::threshold_ = 20;
 
 void quadtreecollision(MovRect * recta, const int num_rects){
+	//build tree
+	QTNode * proot = new QTNode(0, W_RES, 0, H_RES);
+	for(int i = 0; i < num_rects; ++i){
+		proot->insert(&(recta[i]));
+	}
 }
 
 QTNode::QTNode(int minx, int maxx, int miny, int maxy)
@@ -23,7 +28,7 @@ bool QTNode::has_children() const{
 	}
 }
 
-void QTNode::insert(QTNode * proot, MovRect * mr){
+void QTNode::insert(MovRect * mr){
 	if(has_children()){
 		bool was_inserted = false;
 
@@ -33,8 +38,9 @@ void QTNode::insert(QTNode * proot, MovRect * mr){
 				&&
 				(mr->rect_.y >= children_[i]->miny_
 				&& mr->rect_.y + mr->rect_.h <= children_[i]->maxy_)){
+
 				was_inserted = true;
-				insert(children_[i], mr);
+				children_[i]->insert(mr);
 			}
 		}
 
@@ -62,7 +68,7 @@ void QTNode::insert(QTNode * proot, MovRect * mr){
 			children_[3] = new QTNode(maxx_ / 2 + 1, maxx_, maxy_ / 2 + 1, maxy_);
 			int current_data_size = data_.size();
 			for(int i = 0; i < current_data_size; ++i){
-				insert(proot, data_[i]);
+				insert(data_[i]);
 			}
 			data_.erase(data_.begin(), data_.begin() + current_data_size);
 		}
