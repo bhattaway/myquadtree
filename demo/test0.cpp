@@ -9,9 +9,9 @@ int meme(){
 
 	MovRect * recta = new MovRect[num_rects];
 	for(int i = 0; i < num_rects; ++i){
-		recta[i].rect_.x = rand() % (W_RES - 2);
-		recta[i].rect_.y = rand() % (H_RES - 2);
-		recta[i].rect_.w = 2;
+		recta[i].rect_.x = rand() % (W_RES - 10);
+		recta[i].rect_.y = rand() % (H_RES - 10);
+		recta[i].rect_.w = 10;
 		//recta[i].h = rand() % (H_RES - 1 - recta[i].y);
 		recta[i].rect_.h = recta[i].rect_.w;
 		recta[i].rect_.c.r = rand() % 56 + 200;
@@ -71,7 +71,9 @@ int meme(){
 		*/
 
 		//COLLISION DETECTION -- QUADTREE
-		quadtreecollision(recta, num_rects);
+		std::cout << "about to collide...\n";
+		//quadtreecollision(recta, num_rects);
+		std::cout << "done with collisions!\n";
 		
 
 		int count = 0;

@@ -14,13 +14,17 @@ public:
 	int miny_, maxy_;
 	QTNode * children_[4];
 	std::vector < MovRect * > data_;
-	static int threshold_;
 private:
 };
 
 class QuadTree{
 public:
-	QTNode * proot;
+	QuadTree(QTNode * proot = NULL);
+	void qtinsert(MovRect * mr);
+
+	QTNode * proot_;
+	static int max_depth_;
+	static int threshold_;
 private:
 };
 
