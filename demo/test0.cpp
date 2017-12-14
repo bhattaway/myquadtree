@@ -11,7 +11,7 @@ int meme(){
 	for(int i = 0; i < num_rects; ++i){
 		recta[i].rect_.x = rand() % (W_RES - 10);
 		recta[i].rect_.y = rand() % (H_RES - 10);
-		recta[i].rect_.w = 10;
+		recta[i].rect_.w = 2;
 		//recta[i].h = rand() % (H_RES - 1 - recta[i].y);
 		recta[i].rect_.h = recta[i].rect_.w;
 		recta[i].rect_.c.r = rand() % 56 + 200;
@@ -20,7 +20,7 @@ int meme(){
 		recta[i].dx_ = rand() % 8 - 4;
 		recta[i].dy_ = rand() % 8 - 4;
 	}
-	Surface surface(W_RES, H_RES);
+	Surface surface(W_RES + 1, H_RES + 1);
 	Event event;
 
 	const int RATE = 1000 / 60;
@@ -71,9 +71,28 @@ int meme(){
 		*/
 
 		//COLLISION DETECTION -- QUADTREE
-		std::cout << "about to collide...\n";
+		//std::cout << "building tree ...\n";
+		//QTNode * qtn = new QTNode;
+		QuadTree qt(new QTNode);
+		for(int i = 0; i < num_rects; ++i){
+			if(recta[i].get_isAlive()){
+				insert_into_tree(qt.proot_, &recta[i], qt);
+			}
+		}
+		//std::cout << "colliding ...\n";
+		//std::cout << "about to print\n";
+		//preorderprint(qt.proot_);
+
 		//quadtreecollision(recta, num_rects);
+		do_collisions(qt.proot_);
+		/*
 		std::cout << "done with collisions!\n";
+		std::cout << "height : " << qt.height(qt.proot_) << std::endl;
+		int arstd;
+		std::cin >> arstd;
+		*/
+
+
 		
 
 		int count = 0;

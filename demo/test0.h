@@ -17,8 +17,8 @@
 #include "Surface.h"
 #include "Event.h"
 
-const int W_RES = 1600;
-const int H_RES = 900;
+const int W_RES = 1599;
+const int H_RES = 899;
 
 int meme();
 

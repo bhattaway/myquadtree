@@ -23,7 +23,7 @@ void bruteforcecollision(MovRect * recta, const int num_rects){
 	}
 }
 
-void bruteforcecollision(const std::vector< MovRect * > & data){
+void bruteforcecollision(std::vector< MovRect * > & data){
 	for(int i = 0; i < data.size(); ++i){
 		if(data[i]->get_isAlive()){
 			for(int j = i + 1; j < data.size(); ++j){
@@ -44,4 +44,7 @@ void bruteforcecollision(const std::vector< MovRect * > & data){
 			}
 		}
 	}
+}
+
+void bruteforcecollision(std::vector< MovRect * > & mydata, std::vector< MovRect * > & parentdata){
 }

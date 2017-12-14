@@ -5,5 +5,6 @@
 #include "test0.h"
 
 void bruteforcecollision(MovRect * recta, const int num_rects);
+void bruteforcecollision(std::vector< MovRect * > & data);
 
 #endif
