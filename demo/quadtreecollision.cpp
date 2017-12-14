@@ -1,7 +1,7 @@
 #include "quadtreecollision.h"
 #include "bruteforcecollision.h"
 
-int QuadTree::threshold_ = 4;
+int QuadTree::threshold_ = 16;
 int QuadTree::max_depth_ = 6;
 
 QTNode::QTNode(QTNode * parent, int minx, int maxx, int miny, int maxy)
@@ -27,7 +27,7 @@ void QTNode::make_children(){
 	  2  |  3
 		 |  
 	 ****/
-	children_[0] = new QTNode(this, minx_, minx_ + (maxx_ - minx_) / 2, miny_, (maxy_ - miny_) / 2);
+	children_[0] = new QTNode(this, minx_, minx_ + (maxx_ - minx_) / 2, miny_, miny_ + (maxy_ - miny_) / 2);
 	children_[1] = new QTNode(this, minx_ + (maxx_ - minx_) / 2 + 1, maxx_, miny_, miny_ + (maxy_ - miny_) / 2);
 	children_[2] = new QTNode(this, minx_, minx_ + (maxx_ - minx_) / 2, miny_ + (maxy_ - miny_) / 2 + 1, maxy_);
 	children_[3] = new QTNode(this, minx_ + (maxx_ - minx_) / 2 + 1, maxx_, miny_ + (maxy_ - miny_) / 2 + 1, maxy_);
@@ -164,6 +164,22 @@ int QuadTree::height(QTNode * node){
 	}
 }
 
+void find_lines(QTNode * node, std::vector< Line > & lines){
+	if(node != NULL){
+		for(int i = 0; i < 4; ++i){
+			find_lines(node->children_[i], lines);
+		}
+		Line l0(node->minx_, node->miny_, node->maxx_, node->miny_);
+		Line l1(node->minx_, node->miny_, node->minx_, node->maxy_);
+		Line l2(node->minx_, node->maxy_, node->maxx_, node->maxy_);
+		Line l3(node->maxx_, node->miny_, node->maxx_, node->maxy_);
+		lines.push_back(l0);
+		lines.push_back(l1);
+		lines.push_back(l2);
+		lines.push_back(l3);
+	}
+}
+
 void preorderprint(QTNode * proot){
 	//std::cout << proot;
 	if(proot != NULL){
@@ -186,11 +202,58 @@ void preorderprint(QTNode * proot){
 }
 
 void do_collisions(QTNode * node){
+	//TODO: Check collisions between parents and all children
 	if(node != NULL){
 		for(int i = 0; i < 4; ++i){
 			do_collisions(node->children_[i]);
 		}
 		bruteforcecollision(node->data_);
+	}
+}
+
+void do_p_to_c_collisions(QTNode * node, QTNode * subnode){
+	if(node == NULL){
+	}
+	else{
+		if(subnode == NULL){
+		}
+		else{
+			if(subnode->has_children()){
+				for(int i = 0; i < 4; ++i){
+					do_p_to_c_collisions(node, subnode->children_[i]);
+				}
+			}
+			bruteforcecollision(node->data_, subnode->data_);
+		}
+	}
+}
+
+void p_to_c_traverse(QTNode * node){
+	if(node != NULL){
+		if(node->has_children()){
+			for(int i = 0; i < 4; ++i){
+				p_to_c_traverse(node);
+			}
+			for(int i = 0; i < 4; ++i){
+				do_p_to_c_collisions(node, node->children_[i]);
+			}
+		}
+	}
+}
+
+void do_parent_to_child_collisions(QTNode * node, QTNode * child){
+	if(node != NULL && node->has_children()){
+		if(node != NULL){
+			for(int i = 0; i < 4; ++i){
+				do_parent_to_child_collisions(node->children_[i]);
+			}
+			if(child->has_children()){
+				for(int i = 0; i < 4; ++i){
+					do_parent_to_child_collisions(node, child->children_[i]);
+				}
+			}
+			bruteforcecollision(node->data_, child->data_);
+		}
 	}
 }
 

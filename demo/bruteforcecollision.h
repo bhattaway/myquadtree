@@ -6,5 +6,6 @@
 
 void bruteforcecollision(MovRect * recta, const int num_rects);
 void bruteforcecollision(std::vector< MovRect * > & data);
+void bruteforcecollision(std::vector< MovRect * > & data0, std::vector< MovRect * > & data1);
 
 #endif
