@@ -15,8 +15,8 @@ void bruteforcecollision(MovRect * recta, const int num_rects){
 					|| (recta[j].rect_.y >= recta[i].rect_.y
 					&& recta[j].rect_.y <= recta[i].rect_.y + recta[i].rect_.h)))
 				{
-					recta[i].set_isAlive(false);
-					recta[j].set_isAlive(false);
+					//recta[i].set_isAlive(false);
+					//recta[j].set_isAlive(false);
 				}
 			}
 		}
@@ -38,8 +38,8 @@ void bruteforcecollision(std::vector< MovRect * > & data){
 					|| (data[j]->rect_.y >= data[i]->rect_.y
 					&& data[j]->rect_.y <= data[i]->rect_.y + data[i]->rect_.h)))
 				{
-					data[i]->set_isAlive(false);
-					data[j]->set_isAlive(false);
+					//data[i]->set_isAlive(false);
+					//data[j]->set_isAlive(false);
 				}
 			}
 		}
