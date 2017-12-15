@@ -17,7 +17,7 @@
 #include "compgeom.h"
 #include "Surface.h"
 #include "Event.h"
-#include "test0.h"
+#include "collision_simulation.h"
 
 /*****************************************************************************
 This is a short introduction to graphics, animation, sound, music, keyboard
@@ -1149,7 +1149,7 @@ int main(int argc, char* argv[])
 	// Prints to console window
 	std::cout << "hello world" << std::endl;
 
-	meme();
+	collision_simulation();
 	//test_event();
 	//test_pixel();
 	//test_line();

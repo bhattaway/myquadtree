@@ -1,7 +1,7 @@
 #ifndef QUADTREECOLLISION_H
 #define QUADTREECOLLISION_H
 
-#include "test0.h"
+#include "collision_simulation.h"
 #include "MovRect.h"
 #include "Line.h"
 
@@ -45,5 +45,7 @@ void p_to_c_traverse(QTNode * node);
 void do_parent_to_child_collisions(QTNode * node, QTNode * child = NULL);
 
 void find_lines(QTNode * node, std::vector< Line > & lines);
+
+void recursive_del(QTNode * node);
 
 #endif

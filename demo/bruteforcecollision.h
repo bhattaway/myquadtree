@@ -2,7 +2,7 @@
 #define BRUTEFORCECOLLISION_H
 
 #include "MovRect.h"
-#include "test0.h"
+#include "collision_simulation.h"
 
 void bruteforcecollision(MovRect * recta, const int num_rects);
 void bruteforcecollision(std::vector< MovRect * > & data);

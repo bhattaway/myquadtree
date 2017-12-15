@@ -1,7 +1,7 @@
 #ifndef MOVRECT_H
 #define MOVRECT_H
 
-#include "test0.h"
+#include "collision_simulation.h"
 
 class MovRect{
 public:

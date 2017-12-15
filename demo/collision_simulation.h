@@ -1,5 +1,5 @@
-#ifndef TEST0_H
-#define TEST0_H
+#ifndef COLLISION_SIMULATION_H
+#define COLLISION_SIMULATION_H
 
 #include <iostream>
 #include <cmath>
@@ -17,9 +17,10 @@
 #include "Surface.h"
 #include "Event.h"
 
+//resolution of the window
 const int W_RES = 1599;
 const int H_RES = 899;
 
-int meme();
+int collision_simulation();
 
 #endif
