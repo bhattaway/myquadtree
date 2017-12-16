@@ -1,3 +1,13 @@
+/*
+USAGE INSTRUCTIONS:
+the command line will prompt you for an integer; this is the number of rectangles that will spawn initially
+
+during runtime, you may press space. this will change the collision detection method;
+	by default, uses quadtree
+	when space is pressed, uses brute force
+
+	will toggle with each spacebar press
+*/
 #include "collision_simulation.h"
 #include "MovRect.h"
 #include "Line.h"
