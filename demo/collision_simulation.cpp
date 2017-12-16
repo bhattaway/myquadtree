@@ -1,4 +1,6 @@
 /*
+AUTHOR: Brandon Hattaway
+
 USAGE INSTRUCTIONS:
 the command line will prompt you for an integer; this is the number of rectangles that will spawn initially
 
