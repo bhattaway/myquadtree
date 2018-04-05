@@ -2,7 +2,9 @@
 
 USAGE:
 
-go into the demo folder, "make", then "make run"
+"git clone"
+
+then go into the demo folder, "make", then "make run"
 
 input an integer. the program creates that many squares on screen.
 
